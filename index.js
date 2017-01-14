@@ -13,8 +13,8 @@ module.exports = function(homebridge) {
   this.macAddress = config["macAddress"];
   this.ipAddress = config["ipAddress"];
   this.port = config["port"] || 8001;
-	this.appName = config["appName"] || "homebridge";
-	this.encodedAppName = new Buffer(this.appName).toString("base64");
+  this.appName = config["appName"] || "homebridge";
+  this.encodedAppName = new Buffer(this.appName).toString("base64");
 }
 
 SamsungTVAccessory.prototype.getServices = function() {
@@ -31,24 +31,24 @@ SamsungTVAccessory.prototype.identify = function(callback) {
 }
 
 SamsungTVAccessory.prototype.sendKey = function(key, callback) {
-	var url = "http://" + this.ipAddress + ":8001/api/v2/channels/samsung.remote.control?name=" + this.encodedAppName;
-	var ws = new WebSocket(url, callback);
-	ws.on("error", callback);
+  var url = "http://" + this.ipAddress + ":8001/api/v2/channels/samsung.remote.control?name=" + this.encodedAppName;
+  var ws = new WebSocket(url, callback);
+  ws.on("error", callback);
   ws.on("message", function(data, flags) {
-		var cmd = {
-			"method": "ms.remote.control",
-			"params": {
-				"Cmd": "Click",
-				"DataOfCmd": key,
-				"Option": "false",
-				"TypeOfRemote": "SendRemoteKey"
-			}
-		};
-		data = JSON.parse(data);
-		if (data.event == "ms.channel.connect") {
-			ws.send(JSON.stringify(cmd), callback);
-		}
-	});
+    var cmd = {
+      "method": "ms.remote.control",
+      "params": {
+        "Cmd": "Click",
+        "DataOfCmd": key,
+        "Option": "false",
+        "TypeOfRemote": "SendRemoteKey"
+      }
+    };
+    data = JSON.parse(data);
+    if (data.event == "ms.channel.connect") {
+      ws.send(JSON.stringify(cmd), callback);
+    }
+  });
 }
 
 SamsungTVAccessory.prototype.waitForTVOn = function(attemptsLeft, callback) {
@@ -78,7 +78,7 @@ SamsungTVAccessory.prototype.turnOff = function(callback) {
 
 SamsungTVAccessory.prototype.isOn = function(callback) {
   var url = "http://" + this.ipAddress + ":" + this.port + "/api/v2/";
-	return request.get(url, { timeout: 5000 }, function(err, httpResponse, body) {
+  return request.get(url, { timeout: 5000 }, function(err, httpResponse, body) {
     if (err || httpResponse.statusCode != 200) {
       callback(null, false);
     } else {
