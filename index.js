@@ -9,6 +9,7 @@ module.exports = function(homebridge) {
   homebridge.registerAccessory("homebridge-samsungtv", "SamsungTV", SamsungTVAccessory);
 }
 
+function SamsungTVAccessory(log, config) {
   this.name = config["name"];
   this.macAddress = config["macAddress"];
   this.ipAddress = config["ipAddress"];
