@@ -15,8 +15,6 @@
     "homebridge": ">=0.2.0"
   },
   "dependencies": {
-    "request": "^2.79.0",
-    "wake_on_lan": "0.0.4",
-    "ws": "^1.1.1"
+    "samsungtv": "git+ssh://git@github.com/simonbs/samsungtv.git"
   }
 }
